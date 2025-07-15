@@ -1,0 +1,25 @@
+project_id: "project-id-12313123"
+
+interval_seconds: 30
+
+cloud:
+  api_key: "YOUR_SECRET_API_KEY"
+
+postgres:
+  name: "users-db"
+  host: "localhost"
+  port: 5432
+  user: "monitor"
+  password: "secret123"
+  dbname: "users"
+  sslmode: "disable"
+
+redis:
+  name: "cache"
+  host: "localhost"
+  port: 6379
+  password: ""
+
+mongo:
+  name: "analytics"
+  uri: "mongodb://monitor:secret123@localhost:27017/admin"
