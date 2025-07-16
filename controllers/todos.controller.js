@@ -9,7 +9,7 @@ export const getTodos = async (req, res) => {
     const todos = await Todo.find()
       .skip(Number(skip))
       .limit(Number(limit))
-      .populate("user", "username email")
+      .populate("user", "username email birthDate")
       .select("title status user");
 
     res.status(200).json({
@@ -43,6 +43,10 @@ export const createTodo = async (req, res) => {
 
     if (!title) {
       return res.status(400).json({ message: "Title is required" });
+    }
+
+    if (!user) {
+      return res.status(400).json({ message: "UserId is required" });
     }
 
     if (!validStatuses.includes(status)) {

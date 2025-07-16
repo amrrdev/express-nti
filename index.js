@@ -2,13 +2,13 @@ import express from "express";
 import mongoose from "mongoose";
 import todosRouter from "./routes/todos.router.js";
 import userRoutes from "./routes/users.router.js";
+import * as dotenv from "dotenv";
+dotenv.config({ path: ".env" });
 
 const app = express();
 
 app.use(express.json());
-app.use("/", (req, res) => {
-  res.send("<h1>Amrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</h1>");
-});
+
 app.use("/", todosRouter);
 app.use("/", userRoutes);
 

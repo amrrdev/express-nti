@@ -6,6 +6,7 @@ import {
   updateTodo,
   deleteTodo,
 } from "../controllers/todos.controller.js";
+import { auth, restrictTo } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -13,6 +14,6 @@ router.get("/todos", getTodos);
 router.get("/todos/:id", getTodoById);
 router.post("/todos", createTodo);
 router.patch("/todos/:id", updateTodo);
-router.delete("/todos/:id", deleteTodo);
+router.delete("/todos/:id", auth, restrictTo("admin"), deleteTodo);
 
 export default router;

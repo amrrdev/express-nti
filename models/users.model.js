@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-// import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
@@ -30,14 +30,22 @@ const userSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    role: {
+      type: String,
+      enum: ["admin", "user"],
+      default: "user",
+    },
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
-// userSchema.pre("save", async function () {
-//   const salt = await bcrypt.genSalt(10);
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
 
-// })
+const User = mongoose.model("User", userSchema);
 
 export default User;
